@@ -54,6 +54,20 @@ export const STRINGS = {
     DIGIT_2: "2",
     DIGIT_1: "1",
   },
+  TICKET_SELECT: {
+    TITLE: "Select Ticket",
+    SELECT_TICKET: "Select a ticket",
+    ENTER_NUMBER: "Enter Number",
+    NUMBER: "Number",
+    NO_TICKETS: "No tickets available",
+  },
+  ADD_NUMBER: {
+    TITLE: "Add Number",
+    TICKET: "Ticket",
+    ENTER_NUMBER: "Enter Number",
+    NUMBER: "Number",
+    ADD: "Add",
+  },
   REPORT: {
     TITLE: "Reports",
     SALES_REPORT: "Sales Report",
