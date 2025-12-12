@@ -1,8 +1,21 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import type { DigitOption } from "@/components/DigitSelector";
+import DigitSelector from "@/components/DigitSelector";
 import { STRINGS } from "@/constants/strings";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const SAVE_BUTTON_COLOR = "#007AFF";
 
 export default function AddNumberScreen() {
   const router = useRouter();
@@ -13,8 +26,10 @@ export default function AddNumberScreen() {
   }>();
 
   const [number, setNumber] = useState("");
+  const [selectedDigit, setSelectedDigit] = useState<DigitOption>(3);
+  const [showDigitSelector, setShowDigitSelector] = useState(false);
 
-  const handleAddNumber = () => {
+  const handleSave = () => {
     if (!number.trim()) {
       Alert.alert("Error", "Please enter a number");
       return;
@@ -25,26 +40,49 @@ export default function AddNumberScreen() {
     ]);
   };
 
+  const handleDigitSelect = (digit: DigitOption) => {
+    setSelectedDigit(digit);
+    setShowDigitSelector(false);
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{STRINGS.ADD_NUMBER.TITLE}</Text>
+      <StatusBar style="light" backgroundColor={SAVE_BUTTON_COLOR} />
+      
+      {/* Custom Header */}
+      <View style={[styles.customHeader, { backgroundColor: SAVE_BUTTON_COLOR }]}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={handleSave}
+          disabled={!number.trim()}
+        >
+          <Text
+            style={[
+              styles.saveButtonText,
+              !number.trim() && styles.saveButtonTextDisabled,
+            ]}
+          >
+            {STRINGS.ADD_NUMBER.ADD}
+          </Text>
+        </TouchableOpacity>
+
+        <View style={styles.centerHeader}>
+          <Text style={styles.ticketLabelHeader} numberOfLines={1}>
+            {ticketName}
+          </Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.digitSelectorButton}
+          onPress={() => setShowDigitSelector(true)}
+        >
+          <Text style={styles.digitSelectorButtonText}>
+            {selectedDigit} Digit
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.content}>
-        {/* Ticket Display */}
-        <View style={styles.ticketContainer}>
-          <Text style={styles.ticketLabel}>{STRINGS.ADD_NUMBER.TICKET}</Text>
-          <View
-            style={[
-              styles.ticketBadge,
-              { backgroundColor: backgroundColor || "#007AFF" },
-            ]}
-          >
-            <Text style={styles.ticketBadgeText}>{ticketName}</Text>
-          </View>
-        </View>
-
         {/* Number Input */}
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>{STRINGS.ADD_NUMBER.NUMBER}</Text>
@@ -57,19 +95,34 @@ export default function AddNumberScreen() {
             keyboardType="numeric"
           />
         </View>
-
-        {/* Add Button */}
-        <TouchableOpacity
-          style={[
-            styles.addButton,
-            !number.trim() && styles.addButtonDisabled,
-          ]}
-          onPress={handleAddNumber}
-          disabled={!number.trim()}
-        >
-          <Text style={styles.addButtonText}>{STRINGS.ADD_NUMBER.ADD}</Text>
-        </TouchableOpacity>
       </View>
+
+      {/* Digit Selector Modal */}
+      <Modal
+        visible={showDigitSelector}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowDigitSelector(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Digit</Text>
+              <TouchableOpacity
+                onPress={() => setShowDigitSelector(false)}
+                style={styles.closeButton}
+              >
+                <Text style={styles.closeButtonText}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            <DigitSelector
+              selectedValue={selectedDigit}
+              onSelect={handleDigitSelect}
+              showAll={false}
+            />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -79,42 +132,52 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  header: {
-    padding: 20,
-    paddingBottom: 16,
+  customHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    minHeight: 56,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#000",
+  saveButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    minWidth: 60,
+  },
+  saveButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  saveButtonTextDisabled: {
+    opacity: 0.5,
+  },
+  centerHeader: {
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 8,
+  },
+  ticketLabelHeader: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  digitSelectorButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    minWidth: 60,
+    alignItems: "flex-end",
+  },
+  digitSelectorButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
   content: {
     flex: 1,
     padding: 20,
-  },
-  ticketContainer: {
-    marginBottom: 32,
-  },
-  ticketLabel: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#000",
-    marginBottom: 12,
-  },
-  ticketBadge: {
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  ticketBadgeText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "600",
   },
   inputContainer: {
     marginBottom: 24,
@@ -134,21 +197,40 @@ const styles = StyleSheet.create({
     color: "#000",
     backgroundColor: "#fff",
   },
-  addButton: {
-    backgroundColor: "#007AFF",
-    padding: 16,
-    borderRadius: 8,
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "flex-end",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    paddingBottom: 40,
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 8,
+    marginBottom: 20,
   },
-  addButtonDisabled: {
-    backgroundColor: "#ccc",
-    opacity: 0.5,
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
   },
-  addButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
+  closeButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  closeButtonText: {
+    fontSize: 18,
+    color: "#000",
+    fontWeight: "bold",
   },
 });
-

@@ -1,11 +1,9 @@
-import { Link } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import TicketSelectScreen from './ticket-select';
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Link href="/login" style={styles.loginLink}>Go to Login</Link>
-    </View>
+    <TicketSelectScreen />
   );
 }
 
