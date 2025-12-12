@@ -1,15 +1,9 @@
-import { Link } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+import SettingsScreen from "./settings";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
-
-      <Link href="/login" style={styles.loginLink}>
-        Go to Login
-      </Link>
-    </View>
+    <SettingsScreen/>
   );
 }
 
