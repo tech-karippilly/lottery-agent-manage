@@ -1,23 +1,67 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CardItem from "@/components/CardItem";
 
 export default function Dashboard() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Dashboard</Text>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.userBox}>
+          <Ionicons name="person-circle-outline" size={30} color="#444" />
+          <Text style={styles.userId}>RM567</Text>
+        </View>
+
+        <CardItem title="Add" icon="cart-outline" onPress={() => router.push("/dashboard")} />
+        <CardItem title="Reports" icon="document-text-outline" onPress={() => router.push("/dashboard")} />
+        <CardItem title="Notifications" icon="notifications-outline" onPress={() => router.push("/dashboard")} />
+        <CardItem title="Manage Sales" icon="settings-outline" onPress={() => router.push("/dashboard")} />
+        <CardItem
+          title="Support"
+          icon="log-out-outline"
+          backgroundColor="#E53935"
+          onPress={() => router.push("/dashboard")}
+          style={styles.logoutCard}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#F5F5F5",
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
+
+  container: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+
+  userBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#cfcbcbca",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 30,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+
+  userId: {
+    marginLeft: 12,
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#333",
+  },
+
+  logoutCard: {
+    marginTop: 30,
   },
 });
