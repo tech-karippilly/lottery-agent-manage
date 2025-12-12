@@ -46,5 +46,13 @@ export const STRINGS = {
     SAVE: "Save",
     ENTER_COUNT: "Enter count value",
   },
+  COMPONENTS: {
+    SELECT_DIGIT: "Select Digit",
+    SELECT_TICKET: "Select Ticket",
+    ALL: "All",
+    DIGIT_3: "3",
+    DIGIT_2: "2",
+    DIGIT_1: "1",
+  },
 } as const;
 
