@@ -9,5 +9,7 @@ export const ROUTES = {
   TICKET_SETTINGS: "/settings/tickets",
   AMOUNTS_SETTINGS: "/settings/amounts",
   COUNT_SETTINGS: "/settings/count",
+  TICKET_SELECT: "/ticket-select",
+  ADD_NUMBER: "/ticket-select/add-number",
 } as const;
 
