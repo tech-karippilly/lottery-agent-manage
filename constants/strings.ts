@@ -54,4 +54,19 @@ export const STRINGS = {
     DIGIT_2: "2",
     DIGIT_1: "1",
   },
+  REPORT: {
+    TITLE: "Reports",
+    SALES_REPORT: "Sales Report",
+    WINNING_REPORT: "Winning Report",
+    NET_PAY_REPORT: "Net Pay Report",
+  },
+  SALES_REPORT: {
+    TITLE: "Sales Report",
+  },
+  WINNING_REPORT: {
+    TITLE: "Winning Report",
+  },
+  NET_PAY_REPORT: {
+    TITLE: "Net Pay Report",
+  },
 } as const;
