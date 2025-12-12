@@ -11,15 +11,15 @@ export default function Dashboard() {
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.userBox}>
           <Ionicons name="person-circle-outline" size={30} color="#444" />
-          <Text style={styles.userId}>RM567</Text>
+          <Text style={styles.userId}>Tester</Text>
         </View>
 
-        <CardItem title="Add" icon="cart-outline" onPress={() => router.push("/dashboard")} />
-        <CardItem title="Reports" icon="document-text-outline" onPress={() => router.push("/dashboard")} />
-        <CardItem title="Notifications" icon="notifications-outline" onPress={() => router.push("/dashboard")} />
-        <CardItem title="Manage Sales" icon="settings-outline" onPress={() => router.push("/dashboard")} />
+        <CardItem title="Add" icon="cart-outline" onPress={() => router.push("/ticket-select")} />
+        <CardItem title="Reports" icon="document-text-outline" onPress={() => router.push("/report")} />
+      
+        <CardItem title="Manage Sales" icon="settings-outline" onPress={() => router.push("/settings")} />
         <CardItem
-          title="Support"
+          title="Logout"
           icon="log-out-outline"
           backgroundColor="#E53935"
           onPress={() => router.push("/dashboard")}
