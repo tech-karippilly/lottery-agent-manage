@@ -5,5 +5,7 @@
 
 export const COLLECTIONS = {
   TICKETS: "tickets",
+  TICKET_AMOUNTS: "ticketAmounts",
+  WINNING_AMOUNTS: "winningAmounts",
+  COUNT: "count",
 } as const;
-

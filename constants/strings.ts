@@ -55,4 +55,3 @@ export const STRINGS = {
     DIGIT_1: "1",
   },
 } as const;
-

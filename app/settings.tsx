@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import { STRINGS } from "@/constants/strings";
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -7,15 +8,15 @@ export default function SettingsScreen() {
   const router = useRouter();
 
   const handleTicketsPress = () => {
-    router.push("/settings/tickets" as any);
+    router.push(ROUTES.TICKET_SETTINGS);
   };
 
   const handleAmountsPress = () => {
-    router.push("/settings/amounts" as any);
+    router.push(ROUTES.AMOUNTS_SETTINGS as any);
   };
 
   const handleCountPress = () => {
-    router.push("/settings/count" as any);
+    router.push(ROUTES.COUNT_SETTINGS as any);
   };
 
   return (
