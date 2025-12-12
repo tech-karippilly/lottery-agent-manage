@@ -15,7 +15,7 @@ import {
     orderBy,
     query,
     Timestamp,
-    updateDoc
+    updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -139,4 +139,3 @@ export const deleteTicket = async (ticketId: string): Promise<void> => {
     throw error;
   }
 };
-

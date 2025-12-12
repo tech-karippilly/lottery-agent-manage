@@ -9,4 +9,3 @@ export const COLLECTIONS = {
   WINNING_AMOUNTS: "winningAmounts",
   COUNT: "count",
 } as const;
-
