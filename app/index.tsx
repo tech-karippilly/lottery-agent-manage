@@ -1,6 +1,6 @@
+import { Link } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import SettingsScreen from "./settings";
-import { Link } from 'expo-router';
 
 export default function Index() {
   return (
